@@ -140,7 +140,7 @@ public class FacebookHelper {
         if (object.has("cover"))
             user.coverPicUrl = object.getJSONObject("cover").getString("source");
         if (object.has("picture"))
-            user.profilePic = object.getString("picture");
+             user.profilePic = object.getJSONObject("picture").getJSONObject("data").getString("url");
         return user;
     }
 
