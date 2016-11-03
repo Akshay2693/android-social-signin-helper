@@ -7,7 +7,7 @@ This provides easy to implement helper classes for diffrent third party logins.
 * Sign in with **Google plus**
 * Sign in with **LinkedIn**
 * Sign in with **Facebook**
-* Sign in with **Twiter**
+* Sign in with **Twitter**
 
 ###How to use it? *(This is general procedure for any third party signin)*
 * Create project in respective developer site and get key/credentials for authentication.
@@ -27,7 +27,7 @@ This provides easy to implement helper classes for diffrent third party logins.
 * If you don't want to implement all the sign in functionality just copy respective helper package into you project and follow the same procedure as mentioned above.
  
 ###List of helper packages:
-* Google Signin -> **googleAuthSignin**
+* Google Signin -> **googleAuthSignIn**
 * Google Plus Signin -> **googleSignIn**
 * Facebook Signin -> **facebookSignIn**
 * LinedIn signin -> **linkedInSiginIn**
