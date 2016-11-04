@@ -125,6 +125,7 @@ public class InstagramHelper {
                     urlConnection.setRequestMethod("POST");
                     urlConnection.setDoInput(true);
                     urlConnection.setDoOutput(true);
+
                     OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
                     writer.write("client_id=" + mClientId +
                             "&client_secret=" + mClientSecret +
@@ -132,8 +133,10 @@ public class InstagramHelper {
                             "&redirect_uri=" + mCallbackUrl +
                             "&code=" + response);
                     writer.flush();
+
                     String response = streamToString(urlConnection.getInputStream());
                     Log.i(TAG, "response " + response);
+
                     JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
 
                     mAccessToken = jsonObj.getString("access_token");
@@ -159,15 +162,15 @@ public class InstagramHelper {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            mProgress.dismiss();
+
             if (msg.what == WHAT_ERROR) {//if exception occur
-                mProgress.dismiss();
                 if (msg.arg1 == 1) {
                     mListener.onInstagramSignInFail("Failed to get access token");
                 } else if (msg.arg1 == 2) {
                     mListener.onInstagramSignInFail("Failed to get user information");
                 }
             } else {//if no signin successfully then dismiss dialog and pass value to mainactivity
-                mProgress.dismiss();
                 mListener.onInstagramSignInSuccess(mInstagramUser);
             }
         }
