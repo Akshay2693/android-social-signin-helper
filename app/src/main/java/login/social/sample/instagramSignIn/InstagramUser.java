@@ -2,6 +2,7 @@ package login.social.sample.instagramSignIn;
 
 /**
  * Created by krunal on 03-Nov-16.
+ * This class represents instagram user profile.
  */
 
 public class InstagramUser {
@@ -24,7 +25,7 @@ public class InstagramUser {
         return accesstoken;
     }
 
-    public void setAccesstoken(String accesstoken) {
+    void setAccesstoken(String accesstoken) {
         this.accesstoken = accesstoken;
     }
 
@@ -32,7 +33,7 @@ public class InstagramUser {
         return username;
     }
 
-    public void setUsername(String username) {
+    void setUsername(String username) {
         this.username = username;
     }
 
@@ -40,7 +41,7 @@ public class InstagramUser {
         return bio;
     }
 
-    public void setBio(String bio) {
+    void setBio(String bio) {
         this.bio = bio;
     }
 
@@ -48,7 +49,7 @@ public class InstagramUser {
         return website;
     }
 
-    public void setWebsite(String website) {
+    void setWebsite(String website) {
         this.website = website;
     }
 
@@ -56,7 +57,7 @@ public class InstagramUser {
         return profile_picture;
     }
 
-    public void setProfile_picture(String profile_picture) {
+    void setProfile_picture(String profile_picture) {
         this.profile_picture = profile_picture;
     }
 
@@ -64,7 +65,7 @@ public class InstagramUser {
         return full_name;
     }
 
-    public void setFull_name(String full_name) {
+    void setFull_name(String full_name) {
         this.full_name = full_name;
     }
 
@@ -72,7 +73,7 @@ public class InstagramUser {
         return id;
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 }

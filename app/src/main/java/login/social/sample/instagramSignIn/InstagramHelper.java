@@ -24,14 +24,12 @@ import java.net.URL;
 
 public class InstagramHelper {
 
-    private InstagramDialog mDialog;
-    private InstagramUser mInstagramUser;
+    private InstagramDialog mDialog;//Dialog open to display login screen of instagram
+    private InstagramUser mInstagramUser;//Save users data
     private InstagramResponse mListener;
 
     private ProgressDialog mProgress;
-    private String mAuthUrl;
-    private String mTokenUrl;
-    private String mAccessToken;
+    private String mAccessToken;//You can store access token in preferences to maintain session
     private String mClientId;
     private String mClientSecret;
     private static int WHAT_ERROR = 1;
@@ -47,47 +45,60 @@ public class InstagramHelper {
     private static final String API_URL = "https://api.instagram.com/v1";
     private static final String TAG = "InstagramAPI";
 
+    /**
+     * public constructor
+     *
+     * @param clientId        generated from https://www.instagram.com/developer/
+     * @param clientSecretKey generated from https://www.instagram.com/developer/
+     * @param callbackUrl     generated from https://www.instagram.com/developer/
+     * @param context         context of your activity
+     * @param listeners       listener context of your activity
+     */
 
-    private Context mContext;
-
+    @SuppressWarnings("ConstantConditions")
     public InstagramHelper(@NonNull String clientId,
-                           @NonNull String clientSecret,
+                           @NonNull String clientSecretKey,
                            @NonNull String callbackUrl,
                            @NonNull Context context,
                            @NonNull InstagramResponse listeners) {
+
+        //Validating inputs
         if (clientId == null)
             throw new IllegalArgumentException("Instagram client id cannot be null.");
-        else if (clientSecret == null)
-            throw new IllegalArgumentException("Instagram client secret cannot be null.");
-        else if (callbackUrl == null)
+        if (clientSecretKey == null)
+            throw new IllegalArgumentException("Instagram client secret key cannot be null.");
+        if (callbackUrl == null)
             throw new IllegalArgumentException("Instagram callback url cannot be null.");
+        if (listeners == null)
+            throw new IllegalArgumentException("Implement InstagramResponse listener.");
 
-        mContext = context;
         mListener = listeners;
         mClientId = clientId;
-        mClientSecret = clientSecret;
+        mClientSecret = clientSecretKey;
         mCallbackUrl = callbackUrl;
-        mTokenUrl = TOKEN_URL + "?client_id=" + mClientId + "&client_secret="
-                + mClientSecret + "&redirect_uri=" + mCallbackUrl + "&grant_type=authorization_code";
-        mAuthUrl = AUTH_URL + "?client_id=" + mClientId + "&redirect_uri="
+
+        String authUrl = AUTH_URL + "?client_id=" + mClientId + "&redirect_uri="
                 + mCallbackUrl + "&response_type=code&display=touch&scope=likes+comments+relationships";
-        InstagramDialog.OAuthDialogListener listener = new InstagramDialog.OAuthDialogListener() {
+
+        mDialog = new InstagramDialog(context, authUrl, new InstagramDialog.OAuthDialogListener() {
             @Override
-            public void onComplete(String code) {
+            public void onComplete(String code) {//authentication completed
                 getAccessToken(code);
             }
 
             @Override
-            public void onError(String error) {
+            public void onError(String error) {//error while signing in
                 mListener.onInstagramSignInFail("Authorization failed");
             }
-        };
-        mDialog = new InstagramDialog(context, mAuthUrl, listener);
+        });
+
         mProgress = new ProgressDialog(context);
         mProgress.setCancelable(false);
-
     }
 
+    /**
+     * call this funtion to perform sign in with instagram
+     */
     public void performSignIn() {
         if (mAccessToken != null) {
             mAccessToken = null;
@@ -96,9 +107,13 @@ public class InstagramHelper {
         }
     }
 
-    private void getAccessToken(final String code) {
+    /**
+     * @param response is response from instagram login url
+     */
+    private void getAccessToken(final String response) {
         mProgress.setMessage("Getting access token ...");
         mProgress.show();
+
         new Thread() {
             @Override
             public void run() {
@@ -115,13 +130,14 @@ public class InstagramHelper {
                             "&client_secret=" + mClientSecret +
                             "&grant_type=authorization_code" +
                             "&redirect_uri=" + mCallbackUrl +
-                            "&code=" + code);
+                            "&code=" + response);
                     writer.flush();
                     String response = streamToString(urlConnection.getInputStream());
                     Log.i(TAG, "response " + response);
                     JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
 
                     mAccessToken = jsonObj.getString("access_token");
+
                     mInstagramUser = new InstagramUser();
                     mInstagramUser.setAccesstoken(jsonObj.getString("access_token"));
                     mInstagramUser.setUsername(jsonObj.getJSONObject("user").getString("username"));
@@ -143,34 +159,46 @@ public class InstagramHelper {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == WHAT_ERROR) {
+            if (msg.what == WHAT_ERROR) {//if exception occur
                 mProgress.dismiss();
                 if (msg.arg1 == 1) {
                     mListener.onInstagramSignInFail("Failed to get access token");
                 } else if (msg.arg1 == 2) {
                     mListener.onInstagramSignInFail("Failed to get user information");
                 }
-            } else {
+            } else {//if no signin successfully then dismiss dialog and pass value to mainactivity
                 mProgress.dismiss();
                 mListener.onInstagramSignInSuccess(mInstagramUser);
             }
         }
     };
 
+    /**
+     * @param is input stream response from instagram login
+     * @return response from inputstream
+     * @throws IOException if exception occur
+     */
     private String streamToString(InputStream is) throws IOException {
         String str = "";
         if (is != null) {
             StringBuilder sb = new StringBuilder();
             String line;
+            BufferedReader reader = null;
             try {
-                BufferedReader reader = new BufferedReader(
+                reader = new BufferedReader(
                         new InputStreamReader(is));
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
                 }
-                reader.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
-                is.close();
+                try {
+                    is.close();
+                    if (reader != null) reader.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             str = sb.toString();
         }

@@ -40,7 +40,14 @@ public class InstagramDialog extends Dialog {
     private TextView mTitle;
     private static final String TAG = "Instagram-WebView";
 
-    public InstagramDialog(Context context, String url,
+    /**
+     * @param context  instance of caller
+     * @param url      requested url for instagram login
+     * @param listener response to instagram helper if login fail or success.
+     */
+
+    public InstagramDialog(Context context,
+                           String url,
                            OAuthDialogListener listener) {
         super(context);
         mUrl = url;
@@ -66,6 +73,9 @@ public class InstagramDialog extends Dialog {
         cookieManager.removeAllCookie();
     }
 
+    /**
+     * Set title of dialog
+     */
     private void setUpTitle() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         mTitle = new TextView(getContext());
@@ -76,6 +86,10 @@ public class InstagramDialog extends Dialog {
         mTitle.setPadding(MARGIN + PADDING, MARGIN, MARGIN, MARGIN);
         mContent.addView(mTitle);
     }
+
+    /**
+     * Creating webview for instagram dialog login
+     */
 
     private void setUpWebView() {
         mWebView = new WebView(getContext());
@@ -88,6 +102,9 @@ public class InstagramDialog extends Dialog {
         mContent.addView(mWebView);
     }
 
+    /**
+     * Customize webview client
+     */
     private class OAuthWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -128,9 +145,14 @@ public class InstagramDialog extends Dialog {
         }
     }
 
+    /**
+     * Callback between {@link InstagramDialog} to {@link InstagramHelper}.
+     */
     interface OAuthDialogListener {
+        //If user success fully sign in
         void onComplete(String accessToken);
 
+        //If error occurs while sign in
         void onError(String error);
     }
 }
