@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -16,8 +17,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import login.social.sample.R;
 
 /**
  * Created by krunal on 03-Nov-16.
@@ -51,13 +50,23 @@ public class InstagramHelper {
 
     private Context mContext;
 
-    public InstagramHelper(Context context, InstagramResponse listeners) {
+    public InstagramHelper(@NonNull String clientId,
+                           @NonNull String clientSecret,
+                           @NonNull String callbackUrl,
+                           @NonNull Context context,
+                           @NonNull InstagramResponse listeners) {
+        if (clientId == null)
+            throw new IllegalArgumentException("Instagram client id cannot be null.");
+        else if (clientSecret == null)
+            throw new IllegalArgumentException("Instagram client secret cannot be null.");
+        else if (callbackUrl == null)
+            throw new IllegalArgumentException("Instagram callback url cannot be null.");
+
         mContext = context;
         mListener = listeners;
-
-        mClientId = mContext.getResources().getString(R.string.instagram_client_id);
-        mClientSecret = mContext.getResources().getString(R.string.instagram_client_secret);
-        mCallbackUrl = mContext.getResources().getString(R.string.instagram_callback_url);
+        mClientId = clientId;
+        mClientSecret = clientSecret;
+        mCallbackUrl = callbackUrl;
         mTokenUrl = TOKEN_URL + "?client_id=" + mClientId + "&client_secret="
                 + mClientSecret + "&redirect_uri=" + mCallbackUrl + "&grant_type=authorization_code";
         mAuthUrl = AUTH_URL + "?client_id=" + mClientId + "&redirect_uri="
@@ -114,13 +123,13 @@ public class InstagramHelper {
 
                     mAccessToken = jsonObj.getString("access_token");
                     mInstagramUser = new InstagramUser();
-                    mInstagramUser.accesstoken = jsonObj.getString("access_token");
-                    mInstagramUser.username = jsonObj.getJSONObject("user").getString("username");
-                    mInstagramUser.bio = jsonObj.getJSONObject("user").getString("bio");
-                    mInstagramUser.website = jsonObj.getJSONObject("user").getString("website");
-                    mInstagramUser.profile_picture = jsonObj.getJSONObject("user").getString("profile_picture");
-                    mInstagramUser.full_name = jsonObj.getJSONObject("user").getString("full_name");
-                    mInstagramUser.id = jsonObj.getJSONObject("user").getString("id");
+                    mInstagramUser.setAccesstoken(jsonObj.getString("access_token"));
+                    mInstagramUser.setUsername(jsonObj.getJSONObject("user").getString("username"));
+                    mInstagramUser.setBio(jsonObj.getJSONObject("user").getString("bio"));
+                    mInstagramUser.setWebsite(jsonObj.getJSONObject("user").getString("website"));
+                    mInstagramUser.setProfile_picture(jsonObj.getJSONObject("user").getString("profile_picture"));
+                    mInstagramUser.setFull_name(jsonObj.getJSONObject("user").getString("full_name"));
+                    mInstagramUser.setId(jsonObj.getJSONObject("user").getString("id"));
 
                 } catch (Exception ex) {
                     what = WHAT_ERROR;

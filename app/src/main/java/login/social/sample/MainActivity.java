@@ -67,7 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mLinkedInHelper = new LinkedInHelper(this, this);
 
         //instagram initializer
-        mInstagramHelper = new InstagramHelper(this, this);
+        mInstagramHelper = new InstagramHelper(
+                getResources().getString(R.string.instagram_client_id),
+                getResources().getString(R.string.instagram_client_secret),
+                getResources().getString(R.string.instagram_callback_url), this, this);
 
         //set sign in button
         findViewById(R.id.g_login_btn).setOnClickListener(this);
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onInstagramSignInSuccess(InstagramUser user) {
-        Toast.makeText(this, "Instagram user data: full name name=" + user.full_name + " user name=" + user.username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Instagram user data: full name name=" + user.getFull_name() + " user name=" + user.getUsername(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

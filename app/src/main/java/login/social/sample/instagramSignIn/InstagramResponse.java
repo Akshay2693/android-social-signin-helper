@@ -6,7 +6,7 @@ package login.social.sample.instagramSignIn;
 
 public interface InstagramResponse {
 
-    public abstract void onInstagramSignInSuccess(InstagramUser user);
+    void onInstagramSignInSuccess(InstagramUser user);
 
-    public abstract void onInstagramSignInFail(String error);
+    void onInstagramSignInFail(String error);
 }

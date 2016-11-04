@@ -4,7 +4,7 @@
     <string name="twitter_api_key">ZLiRTn1UbKjImUeWL2KVVynZi</string>
     <string name="twitter_secrate_key">NpzummsFJChUmQ6wQz4Bc9jHWceyhduONMfhwcSyPXwUN7gIr1</string>
 
-    <string name="instagram_client_id">31f676aa63b6487ebc7ab035ab9ca0f9</string>
-    <string name="instagram_callback_url">http://www.multidots.com/</string>
-    <string name="instagram_client_secret">83af30b57cdc4793ae01f225b24b31eb</string>
+    <string name="instagram_client_id">31f676aa63b6487ebc7ab035ab9ca0c9</string>
+    <string name="instagram_callback_url">http://www.google.co.in</string>
+    <string name="instagram_client_secret">83af30b57cdc4793ae01f225b24b31ed</string>
 </resources>
