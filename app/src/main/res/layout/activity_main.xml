@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="login.social.sample.MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:paddingLeft="@dimen/activity_horizontal_margin"
+              android:paddingRight="@dimen/activity_horizontal_margin"
+              android:paddingTop="@dimen/activity_vertical_margin"
+              tools:context="login.social.sample.MainActivity">
 
     <Button
         android:id="@+id/g_login_btn"
         style="@style/GoogleSignInButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:textColor="@android:color/black"
         android:background="@android:color/white"
-        android:text="Google" />
+        android:clickable="false"
+        android:text="Google"
+        android:textColor="@android:color/black"/>
 
     <Button
         android:id="@+id/g_plus_login_btn"
         style="@style/GoogleSignInButton"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="@string/bt_google" />
+        android:text="@string/bt_google"/>
 
     <Button
         android:id="@+id/g_plus_logout_btn"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:clickable="false"
-        android:text="@string/bt_google_logout" />
+        android:text="@string/bt_google_logout"/>
 
     <Button
         android:id="@+id/bt_act_login_fb"
@@ -46,7 +46,7 @@
         android:background="@drawable/corner_fb"
         android:text="Facebook"
         android:textAllCaps="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <!--never change id of this button-->
     <Button
@@ -57,7 +57,7 @@
         android:background="@color/twitter_color"
         android:text="Login with Twitter"
         android:textAllCaps="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <!--never change id of this button-->
     <Button
@@ -68,7 +68,7 @@
         android:background="@color/linkedin_color"
         android:text="Login with LinkedIn"
         android:textAllCaps="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
 
     <!--never change id of this button-->
     <Button
@@ -79,5 +79,16 @@
         android:background="@color/linkedin_color"
         android:text="Logout from LinkedIn"
         android:textAllCaps="true"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"/>
+
+    <!--never change id of this button-->
+    <Button
+        android:id="@+id/instagram_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="#125688"
+        android:text="Login with instagram"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"/>
 </LinearLayout>

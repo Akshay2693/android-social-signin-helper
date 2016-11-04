@@ -18,6 +18,9 @@ import login.social.sample.googleAuthSignin.GoogleAuthUser;
 import login.social.sample.googleAuthSignin.GoogleSignInHelper;
 import login.social.sample.googleSignIn.GooglePlusSignInHelper;
 import login.social.sample.googleSignIn.GoogleResponseListener;
+import login.social.sample.instagramSignIn.InstagramHelper;
+import login.social.sample.instagramSignIn.InstagramResponse;
+import login.social.sample.instagramSignIn.InstagramUser;
 import login.social.sample.linkedInSiginIn.LinkedInHelper;
 import login.social.sample.linkedInSiginIn.LinkedInResponse;
 import login.social.sample.linkedInSiginIn.LinkedInUser;
@@ -27,13 +30,14 @@ import login.social.sample.twitterSignIn.TwitterUser;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        GoogleResponseListener, FacebookResponse, TwitterResponse, LinkedInResponse, GoogleAuthResponse {
+        GoogleResponseListener, FacebookResponse, TwitterResponse, LinkedInResponse, GoogleAuthResponse, InstagramResponse {
 
     private FacebookHelper mFbHelper;
     private GooglePlusSignInHelper mGHelper;
     private GoogleSignInHelper mGAuthHelper;
     private TwitterHelper mTwitterHelper;
     private LinkedInHelper mLinkedInHelper;
+    private InstagramHelper mInstagramHelper;
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -62,6 +66,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //linkedIn initializer
         mLinkedInHelper = new LinkedInHelper(this, this);
 
+        //instagram initializer
+        mInstagramHelper = new InstagramHelper(
+                getResources().getString(R.string.instagram_client_id),
+                getResources().getString(R.string.instagram_client_secret),
+                getResources().getString(R.string.instagram_callback_url), this, this);
+
         //set sign in button
         findViewById(R.id.g_login_btn).setOnClickListener(this);
         findViewById(R.id.g_plus_login_btn).setOnClickListener(this);
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.bt_act_login_fb).setOnClickListener(this);
         findViewById(R.id.linkedin_login_button).setOnClickListener(this);
         findViewById(R.id.linkedin_logout_button).setOnClickListener(this);
+        findViewById(R.id.instagram_login_button).setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.linkedin_logout_button:
                 mLinkedInHelper.logout();
+                break;
+            case R.id.instagram_login_button:
+                mInstagramHelper.performSignIn();
                 break;
         }
     }
@@ -195,5 +209,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onGoogleAuthSignInFailed() {
         Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onInstagramSignInSuccess(InstagramUser user) {
+        Toast.makeText(this, "Instagram user data: full name name=" + user.getFull_name() + " user name=" + user.getUsername(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onInstagramSignInFail(String error) {
+        Toast.makeText(this, "Instagram sign in failed", Toast.LENGTH_SHORT).show();
     }
 }
