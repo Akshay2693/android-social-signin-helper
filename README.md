@@ -8,6 +8,7 @@ This provides easy to implement helper classes for diffrent third party logins.
 * Sign in with **LinkedIn**
 * Sign in with **Facebook**
 * Sign in with **Twitter**
+* Sign in with **Instagram**
 
 ###How to use it? *(This is general procedure for any third party signin)*
 * Create project in respective developer site and get key/credentials for authentication.
@@ -32,3 +33,4 @@ This provides easy to implement helper classes for diffrent third party logins.
 * Facebook Signin -> **facebookSignIn**
 * LinedIn signin -> **linkedInSiginIn**
 * Twitter signin -> **twitterSignIn**
+* Instagram signin -> **instagramSignIn**
