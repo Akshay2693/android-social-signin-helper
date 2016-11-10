@@ -6,5 +6,9 @@
     {
         "merged": "F:\\Projects\\Examples\\SocialLogin2\\linkedinsdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_launcher.png",
         "source": "F:\\Projects\\Examples\\SocialLogin2\\linkedinsdk\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\Projects\\android-social-signin-helper\\linkedinsdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "F:\\Projects\\android-social-signin-helper\\linkedinsdk\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
     }
 ]

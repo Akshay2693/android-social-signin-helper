@@ -4,6 +4,10 @@
         "source": "F:\\Projects\\Examples\\SocialLogin2\\linkedinsdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
     },
     {
+        "merged": "F:\\Projects\\android-social-signin-helper\\linkedinsdk\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "F:\\Projects\\android-social-signin-helper\\linkedinsdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "F:\\Projects\\Examples\\Social-Signin-Android\\linkedinsdk\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "F:\\Projects\\Examples\\Social-Signin-Android\\linkedinsdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
     }
