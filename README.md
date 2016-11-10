@@ -1,5 +1,7 @@
 # Social-Signin-Android
 
+[![Build Status](https://travis-ci.org/multidots/android-social-signin-helper.svg?branch=master)](https://travis-ci.org/multidots/android-social-signin-helper)
+
 This provides easy to implement helper classes for diffrent third party logins.
 
 ###This social login includes following third party logins:
