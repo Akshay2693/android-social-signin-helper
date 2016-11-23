@@ -178,7 +178,6 @@ public class FacebookHelper {
     }
 
     public void performSignOut(Activity activity) {
-        //TODO Check this code
         FacebookSdk.sdkInitialize(activity);
         LoginManager.getInstance().logOut();
         mListener.onFBSignOut();
