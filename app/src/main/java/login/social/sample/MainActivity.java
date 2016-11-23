@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.model.people.Person;
 
 import login.social.sample.facebookSignIn.FacebookHelper;
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mFbHelper.performSignIn(this);
                 break;
             case R.id.bt_act_logout_fb:
-                mFbHelper.performSignOut(this);
+                mFbHelper.performSignOut();
                 break;
             case R.id.twitter_login_button:
                 mTwitterHelper.performSignIn();
@@ -226,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onGoogleAuthSignOut(Status status) {
-        Toast.makeText(this, status.toString(), Toast.LENGTH_SHORT).show();
+    public void onGoogleAuthSignOut(boolean isSuccess) {
+        Toast.makeText(this, isSuccess ? "Sign out success" : "Sign out failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override

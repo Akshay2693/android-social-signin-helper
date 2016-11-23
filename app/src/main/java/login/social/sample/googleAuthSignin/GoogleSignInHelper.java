@@ -107,7 +107,7 @@ public class GoogleSignInHelper implements GoogleApiClient.OnConnectionFailedLis
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        mListener.onGoogleAuthSignOut(status);
+                       mListener.onGoogleAuthSignOut(status.isSuccess());
                     }
                 });
     }

@@ -177,8 +177,7 @@ public class FacebookHelper {
         mCallBackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void performSignOut(Activity activity) {
-        FacebookSdk.sdkInitialize(activity);
+    public void performSignOut() {
         LoginManager.getInstance().logOut();
         mListener.onFBSignOut();
     }
