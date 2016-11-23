@@ -13,6 +13,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 /**
  * Created by multidots on 6/21/2016.
@@ -32,12 +34,12 @@ public class GoogleSignInHelper implements GoogleApiClient.OnConnectionFailedLis
      * @param serverClientId The client ID of the server that will verify the integrity of the token. If you don't have clientId pass null.
      *                       For more detail visit {@link 'https://developers.google.com/identity/sign-in/android/backend-auth'}
      */
-    public GoogleSignInHelper(FragmentActivity context, @Nullable String serverClientId,@NonNull GoogleAuthResponse listener) {
+    public GoogleSignInHelper(FragmentActivity context, @Nullable String serverClientId, @NonNull GoogleAuthResponse listener) {
         mContext = context;
         mListener = listener;
 
         //noinspection ConstantConditions
-        if (listener == null){
+        if (listener == null) {
             throw new RuntimeException("GoogleAuthResponse listener cannot be null.");
         }
 
@@ -61,17 +63,17 @@ public class GoogleSignInHelper implements GoogleApiClient.OnConnectionFailedLis
                 .build();
     }
 
-    public void performSignIn(Activity activity){
+    public void performSignIn(Activity activity) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void performSignIn(Fragment activity){
+    public void performSignIn(Fragment activity) {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         activity.startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -85,11 +87,11 @@ public class GoogleSignInHelper implements GoogleApiClient.OnConnectionFailedLis
         }
     }
 
-    private GoogleAuthUser parseToGoogleUser(GoogleSignInAccount account){
+    private GoogleAuthUser parseToGoogleUser(GoogleSignInAccount account) {
         GoogleAuthUser user = new GoogleAuthUser();
         user.name = account.getDisplayName();
         user.familyName = account.getFamilyName();
-        user.idToken =account.getIdToken();
+        user.idToken = account.getIdToken();
         user.email = account.getEmail();
         user.photoUrl = account.getPhotoUrl();
         return user;
@@ -98,5 +100,15 @@ public class GoogleSignInHelper implements GoogleApiClient.OnConnectionFailedLis
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         mListener.onGoogleAuthSignInFailed();
+    }
+
+    public void performSignOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                       mListener.onGoogleAuthSignOut(status.isSuccess());
+                    }
+                });
     }
 }

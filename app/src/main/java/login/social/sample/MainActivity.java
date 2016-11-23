@@ -74,10 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //set sign in button
         findViewById(R.id.g_login_btn).setOnClickListener(this);
+        findViewById(R.id.g_logout_btn).setOnClickListener(this);
         findViewById(R.id.g_plus_login_btn).setOnClickListener(this);
         findViewById(R.id.g_plus_logout_btn).setOnClickListener(this);
         findViewById(R.id.twitter_login_button).setOnClickListener(this);
         findViewById(R.id.bt_act_login_fb).setOnClickListener(this);
+        findViewById(R.id.bt_act_logout_fb).setOnClickListener(this);
         findViewById(R.id.linkedin_login_button).setOnClickListener(this);
         findViewById(R.id.linkedin_logout_button).setOnClickListener(this);
         findViewById(R.id.instagram_login_button).setOnClickListener(this);
@@ -89,6 +91,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.g_login_btn:
                 mGAuthHelper.performSignIn(this);
                 break;
+            case R.id.g_logout_btn:
+                mGAuthHelper.performSignOut();
+                break;
             case R.id.g_plus_login_btn:
                 mGHelper.performSignIn();
                 break;
@@ -97,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_act_login_fb:
                 mFbHelper.performSignIn(this);
+                break;
+            case R.id.bt_act_logout_fb:
+                mFbHelper.performSignOut();
                 break;
             case R.id.twitter_login_button:
                 mTwitterHelper.performSignIn();
@@ -157,6 +165,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void onFBSignOut() {
+        Toast.makeText(this, "Facebook sign out success", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onGSignInFail() {
         Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
     }
@@ -209,6 +222,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onGoogleAuthSignInFailed() {
         Toast.makeText(this, "Google sign in failed.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onGoogleAuthSignOut(boolean isSuccess) {
+        Toast.makeText(this, isSuccess ? "Sign out success" : "Sign out failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
