@@ -9,4 +9,6 @@ public interface FacebookResponse {
     void onFbSignInSuccess();
 
     void onFbProfileReceived(FacebookUser facebookUser);
+
+    void onFBSignOut();
 }

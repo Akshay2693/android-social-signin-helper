@@ -140,7 +140,7 @@ public class FacebookHelper {
         if (object.has("cover"))
             user.coverPicUrl = object.getJSONObject("cover").getString("source");
         if (object.has("picture"))
-             user.profilePic = object.getJSONObject("picture").getJSONObject("data").getString("url");
+            user.profilePic = object.getJSONObject("picture").getJSONObject("data").getString("url");
         return user;
     }
 
@@ -177,4 +177,10 @@ public class FacebookHelper {
         mCallBackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void performSignOut(Activity activity) {
+        //TODO Check this code
+        FacebookSdk.sdkInitialize(activity);
+        LoginManager.getInstance().logOut();
+        mListener.onFBSignOut();
+    }
 }
