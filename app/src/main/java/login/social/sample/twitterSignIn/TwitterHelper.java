@@ -4,30 +4,36 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.util.Log;
 
-import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.AccountService;
 
-import io.fabric.sdk.android.Fabric;
+import retrofit2.Call;
+
 
 /**
  * Created by multidots on 6/17/2016.<p>
  * This class will handle all the twitter sign in related functionality.
  */
 public class TwitterHelper {
-    private TwitterAuthClient mAuthClient;
-
+    private static final String TAG = "TwitterHelper";
     @NonNull
     private final Activity mActivity;
-
     @NonNull
     private final TwitterResponse mListener;
+    private TwitterAuthClient mAuthClient;
 
     /**
      * Public constructor. This will initialize twitter sdk.
@@ -49,37 +55,36 @@ public class TwitterHelper {
         mListener = response;
 
         //initialize sdk
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(context.getResources().getString(twitterApiKey),
-                context.getResources().getString(twitterSecreteKey));
-        Fabric.with(context, new Twitter(authConfig));
+        TwitterConfig authConfig = new TwitterConfig.Builder(context)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig(context.getResources().getString(twitterApiKey),
+                        context.getResources().getString(twitterSecreteKey)))
+                .debug(true)
+                .build();
+        Twitter.initialize(authConfig);
 
         mAuthClient = new TwitterAuthClient();
     }
 
     /**
-     * Result callback.
-     */
-    private Callback<TwitterSession> mCallback = new Callback<TwitterSession>() {
-        @Override
-        public void success(Result<TwitterSession> result) {
-            TwitterSession session = result.data;
-            mListener.onTwitterSignIn(session.getUserName(), session.getUserId() + " ");
-
-            //load user data.
-            getUserData();
-        }
-
-        @Override
-        public void failure(TwitterException exception) {
-            mListener.onTwitterError();
-        }
-    };
-
-    /**
      * Perform twitter sign in. Call this method when user clicks on "Login with Twitter" button.
      */
     public void performSignIn() {
-        mAuthClient.authorize(mActivity, mCallback);
+        mAuthClient.authorize(mActivity, new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                TwitterSession session = result.data;
+                mListener.onTwitterSignIn(session.getUserName(), session.getUserId() + " ");
+
+                //load user data.
+                getUserData();
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                mListener.onTwitterError();
+            }
+        });
     }
 
     /**
@@ -98,9 +103,14 @@ public class TwitterHelper {
      * Load twitter user profile.
      */
     private void getUserData() {
-        Twitter.getApiClient().getAccountService().verifyCredentials(true, false, new Callback<User>() {
+        TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient();
+        AccountService statusesService = twitterApiClient.getAccountService();
+        Call<User> call = statusesService.verifyCredentials(true, true, true);
+        call.enqueue(new Callback<User>() {
             @Override
             public void success(Result<User> userResult) {
+                //Do something with result
+
                 //parse the response
                 TwitterUser user = new TwitterUser();
                 user.name = userResult.data.name;
@@ -114,10 +124,10 @@ public class TwitterHelper {
                 mListener.onTwitterProfileReceived(user);
             }
 
-            @Override
-            public void failure(TwitterException e) {
-                mListener.onTwitterError();
+            public void failure(TwitterException exception) {
+                //Do something on failure
             }
         });
     }
 }
+

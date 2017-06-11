@@ -34,10 +34,6 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-
-       <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="a6ea342c87f9c2b9826ad3e7ce1f7c0ac8b516a3" />
     </application>
 
 </manifest>
