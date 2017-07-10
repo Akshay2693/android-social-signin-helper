@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android-social-signin-helper.iml" filepath="$PROJECT_DIR$/android-social-signin-helper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-social-signin-helper.iml" filepath="$PROJECT_DIR$/android-social-signin-helper.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/linkedinsdk/linkedinsdk.iml" filepath="$PROJECT_DIR$/linkedinsdk/linkedinsdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/linkedinsdk/linkedinsdk.iml" filepath="$PROJECT_DIR$/linkedinsdk/linkedinsdk.iml" />
     </modules>
   </component>
