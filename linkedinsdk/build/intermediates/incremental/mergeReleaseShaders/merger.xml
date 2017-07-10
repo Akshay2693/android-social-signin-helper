@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\Projects\android-social-signin-helper\linkedinsdk\src\main\shaders"/></dataSet><dataSet config="release"><source path="F:\Projects\android-social-signin-helper\linkedinsdk\src\release\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/kevalpatel/Documents/Code/android-social-signin-helper/linkedinsdk/src/main/shaders"/></dataSet><dataSet config="release"><source path="/Users/kevalpatel/Documents/Code/android-social-signin-helper/linkedinsdk/src/release/shaders"/></dataSet></merger>
