@@ -7,6 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="GoogleAuthSignInButton">
+        <item name="android:background">@drawable/common_google_signin_btn_text_light</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
     <style name="GoogleSignInButton">
         <item name="android:background">@drawable/drawable_google</item>
         <item name="android:textColor">@android:color/white</item>
