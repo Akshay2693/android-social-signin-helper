@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:text="GOOGLE SIGNIN"/>
+            android:text="GOOGLE SIGNIN" />
 
         <Button
             android:id="@+id/g_logout_btn"
@@ -50,34 +50,28 @@
 
         <Button
             android:id="@+id/bt_act_login_fb"
+            style="@style/FacebookSigninInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/corner_fb"
-            android:text="Facebook"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:text="Facebook" />
 
         <Button
             android:id="@+id/bt_act_logout_fb"
+            style="@style/FacebookSigninInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/corner_fb"
-            android:text="Facebook Logout"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:text="Facebook Logout" />
 
         <!--never change id of this button-->
         <Button
             android:id="@+id/twitter_login_button"
+            style="@style/TwitterSigninInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@color/twitter_color"
-            android:text="Login with Twitter"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:text="Login with Twitter" />
 
         <!--never change id of this button-->
         <Button
