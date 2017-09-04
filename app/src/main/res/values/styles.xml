@@ -17,4 +17,23 @@
         <item name="android:background">@drawable/drawable_google</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+    <style name="FacebookSigninInButton">
+        <item name="android:background">@drawable/com_facebook_button_background</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:text">FACEBOOK SIGNIN</item>
+        <item name="android:drawableStart">@drawable/com_facebook_button_icon</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+
+    <style name="TwitterSigninInButton">
+        <item name="android:background">@drawable/tw__login_btn</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:text">TWITTER SIGNIN</item>
+        <item name="android:drawableStart">@drawable/tw__ic_logo_default</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
 </resources>
