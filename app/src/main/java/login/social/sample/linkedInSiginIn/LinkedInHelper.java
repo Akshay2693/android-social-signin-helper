@@ -129,7 +129,10 @@ public class LinkedInHelper {
         LinkedInUser user = new LinkedInUser();
         user.email = response.getString("emailAddress");
         user.name = response.getString("formattedName");
-        user.pictureUrl = response.getString("pictureUrl");
+        //Check if user has set any profile picture
+        if (response.has("pictureUrl")) {
+            user.pictureUrl = response.getString("pictureUrl");
+        }
 //        user.phone = response.getString("emailAddress");
         return user;
     }
